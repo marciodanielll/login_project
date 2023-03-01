@@ -17,5 +17,4 @@
   <li><input type="checkbox" disabled>Deve ser possível fazer o login utilizando e-mail e senha</li>
   <li><input type="checkbox" disabled>Deve ser possível recuperar a senha utilizando o e-mail cadastrado</li>
   <li><input type="checkbox" disabled>Deve ser possível encerrar a sessão do usuário</li>
-  <li><input type="checkbox" disabled>Deve usar a biblioteca bcrypt para fazer hash da senha</li>
 </ul>
