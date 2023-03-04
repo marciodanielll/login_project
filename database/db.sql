@@ -17,6 +17,8 @@ CREATE TABLE `state` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   uf CHAR(2) NOT NULL,
+  ON DELETE CASCADE,
+  ON UPDATE CASCADE,
   PRIMARY KEY (id)
 );
 
@@ -24,6 +26,8 @@ CREATE TABLE `city` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   state_id INT NOT NULL,
+  ON DELETE CASCADE,
+  ON UPDATE CASCADE,
   PRIMARY KEY (`id`),
   FOREIGN KEY (state_id) REFERENCES state(id)
 );
@@ -36,6 +40,8 @@ CREATE TABLE `address` (
   `neighborhood` VARCHAR(100) NOT NULL,
   `zip_code` VARCHAR(10) NOT NULL,
   city_id INT NOT NULL,
+  ON DELETE CASCADE,
+  ON UPDATE CASCADE,
   PRIMARY KEY (`id`),
   FOREIGN KEY (city_id) REFERENCES city(id)
 );
@@ -43,6 +49,8 @@ CREATE TABLE `address` (
 CREATE TABLE `user_address` (
   `user_id` INT NOT NULL,
   `address_id` INT NOT NULL,
+  ON DELETE CASCADE,
+  ON UPDATE CASCADE,
   FOREIGN KEY (`user_id`) REFERENCES `user`(`id`),
   FOREIGN KEY (`address_id`) REFERENCES `address`(`id`)
 );
