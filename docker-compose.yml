@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - PORT=${PORT}
+    container_name: app
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
+    command: sh
+    depends_on:
+      - db
+    restart: on-failure
+  db:
+    image: mysql:8.0
+    container_name: db
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    restart: on-failure
+    tmpfs:
+      - /var/lib/mysq
+  
+networks:
+  default:
+      name: ${NETWORK_NAME}
