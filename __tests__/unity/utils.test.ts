@@ -3,7 +3,7 @@ import { showDataType } from '../utils';
 
 const { expect } = chai;
 
-describe('Utils', () => {
+describe('UTILS | For tests', () => {
   it('should return a type array', () => {
     expect(showDataType([])).to.be.equals('array');
   });
