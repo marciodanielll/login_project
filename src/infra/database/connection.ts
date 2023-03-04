@@ -10,7 +10,9 @@ const getConnection = async (): Promise<PoolConnection> => {
     return db;
   }
 
-  const pool: Pool = mysql2.createPool(others);
+  const pool: Pool = mysql2.createPool({
+    ...others,
+  });
   const connection: PoolConnection = await pool.getConnection();
 
   db = connection;
