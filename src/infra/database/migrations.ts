@@ -4,14 +4,16 @@ import getConnection from './connection';
 const { log, time, timeEnd } = console;
 
 const migrations = async (): Promise<void> => {
-  time('migrations');
+  time('\x1b[32mMigration query successfully\x1b[0m');
   const db: PoolConnection = await getConnection();
-  db.beginTransaction();
+  await db.beginTransaction();
   try {
+    await db.query('DROP DATABASE IF EXISTS `login`');
+
     await db.query('CREATE DATABASE IF NOT EXISTS `login`');
 
     await db.query(`
-      CREATE TABLE \`user\` (
+      CREATE TABLE login.\`user\` (
         \`id\` INT NOT NULL AUTO_INCREMENT,
         first_name VARCHAR(100) NOT NULL,
         last_name VARCHAR(100) NOT NULL,
@@ -24,30 +26,26 @@ const migrations = async (): Promise<void> => {
     `);
 
     await db.query(`
-      CREATE TABLE \`state\` (
+      CREATE TABLE login.\`state\` (
         \`id\` INT NOT NULL AUTO_INCREMENT,
         \`name\` VARCHAR(100) NOT NULL,
         \`uf\` CHAR(2) NOT NULL,
-        PRIMARY KEY (\`id\`),
-        ON DELETE CASCADE,
-        ON UPDATE CASCADE
+        PRIMARY KEY (\`id\`)
       );
     `);
 
     await db.query(`
-      CREATE TABLE \`city\` (
+      CREATE TABLE login.\`city\` (
         \`id\` INT NOT NULL AUTO_INCREMENT,
         \`name\` VARCHAR(100) NOT NULL,
         \`state_id\` INT NOT NULL,
         PRIMARY KEY (\`id\`),
-        ON DELETE CASCADE,
-        ON UPDATE CASCADE,
         FOREIGN KEY (\`state_id\`) REFERENCES \`state\`(\`id\`)
       );
     `);
 
     await db.query(`
-      CREATE TABLE \`address\` (
+      CREATE TABLE login.\`address\` (
         \`id\` INT NOT NULL AUTO_INCREMENT,
         \`street\` VARCHAR(100) NOT NULL,
         \`number\` VARCHAR(10) NOT NULL,
@@ -56,32 +54,33 @@ const migrations = async (): Promise<void> => {
         \`zip_code\` VARCHAR(10) NOT NULL,
         \`city_id\` INT NOT NULL,
         PRIMARY KEY (\`id\`),
-        ON DELETE CASCADE,
-        ON UPDATE CASCADE,
         FOREIGN KEY (\`city_id\`) REFERENCES \`city\`(\`id\`)
       );
     `);
 
     await db.query(`
-      CREATE TABLE \`user_address\` (
+      CREATE TABLE login.\`user_address\` (
         \`user_id\` INT NOT NULL,
         \`address_id\` INT NOT NULL,
         PRIMARY KEY (\`user_id\`, \`address_id\`),
-        ON DELETE CASCADE,
-        ON UPDATE CASCADE,
         FOREIGN KEY (\`user_id\`) REFERENCES \`user\`(\`id\`),
         FOREIGN KEY (\`address_id\`) REFERENCES \`address\`(\`id\`)
       );
     `);
+
     db.commit();
+    timeEnd('\x1b[32mMigration query successfully\x1b[0m');
+    db.release();
+
+    process.exit(0);
   } catch (err) {
     log(err);
-
     db.rollback();
-  } finally {
-    timeEnd('migrations');
-    db.release();
+
+    process.exit(0);
   }
 };
 
 export default migrations;
+
+migrations();
