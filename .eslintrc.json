@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "env": {
+    "browser": false,
+    "node": true,
+    "es2020": true
+  },
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-base",
+    "airbnb-typescript/base"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "sonarjs"
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "overrides": [
+    {
+      "files": ["config/**/*.{ts}", "database/**/*.ts"]
+    }
+  ]
+}
