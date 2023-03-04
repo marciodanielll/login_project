@@ -7,6 +7,6 @@
     "allowJs": true,
     "baseUrl": "."
   },
-  "include": ["src/**/*.ts", "__tests__/**/*.ts", "config/**/*ts", "__tests__/**/*ts", "database/**/*ts"],
+  "include": ["src/**/*.ts", "__tests__/unity/**/*.ts",],
   "exclude": ["node_modules", "build"]
 }
