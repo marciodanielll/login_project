@@ -70,13 +70,13 @@ const migrations = async (): Promise<void> => {
       );
     `);
 
-    db.commit();
+    await db.commit();
 
     timeEnd('\x1b[32mMigrations query successfully\x1b[0m');
   } catch (err) {
     log(err);
 
-    db.rollback();
+    await db.rollback();
   } finally {
     db.release();
     process.exit();
