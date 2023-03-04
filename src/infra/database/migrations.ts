@@ -4,9 +4,11 @@ import getConnection from './connection';
 const { log, time, timeEnd } = console;
 
 const migrations = async (): Promise<void> => {
-  time('\x1b[32mMigration query successfully\x1b[0m');
+  time('\x1b[32mMigrations query successfully\x1b[0m');
   const db: PoolConnection = await getConnection();
+
   await db.beginTransaction();
+
   try {
     await db.query('DROP DATABASE IF EXISTS `login`');
 
@@ -69,15 +71,15 @@ const migrations = async (): Promise<void> => {
     `);
 
     db.commit();
-    timeEnd('\x1b[32mMigration query successfully\x1b[0m');
-    db.release();
 
-    process.exit(0);
+    timeEnd('\x1b[32mMigrations query successfully\x1b[0m');
   } catch (err) {
     log(err);
-    db.rollback();
 
-    process.exit(0);
+    db.rollback();
+  } finally {
+    db.release();
+    process.exit();
   }
 };
 
