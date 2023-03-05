@@ -4,7 +4,7 @@ import getConnection from './connection';
 const { log, time, timeEnd } = console;
 
 const migrations = async (): Promise<void> => {
-  time('\x1b[32mMigrations query successfully\x1b[0m');
+  time('\x1b[32mMigrations queries run successfully\x1b[0m');
   const db: PoolConnection = await getConnection();
 
   await db.beginTransaction();
@@ -27,49 +27,6 @@ const migrations = async (): Promise<void> => {
       );
     `);
 
-    await db.query(`
-      CREATE TABLE login.\`state\` (
-        \`id\` INT NOT NULL AUTO_INCREMENT,
-        \`name\` VARCHAR(100) NOT NULL,
-        \`uf\` CHAR(2) NOT NULL,
-        PRIMARY KEY (\`id\`)
-      );
-    `);
-
-    await db.query(`
-      CREATE TABLE login.\`city\` (
-        \`id\` INT NOT NULL AUTO_INCREMENT,
-        \`name\` VARCHAR(100) NOT NULL,
-        \`state_id\` INT NOT NULL,
-        PRIMARY KEY (\`id\`),
-        FOREIGN KEY (\`state_id\`) REFERENCES \`state\`(\`id\`)
-      );
-    `);
-
-    await db.query(`
-      CREATE TABLE login.\`address\` (
-        \`id\` INT NOT NULL AUTO_INCREMENT,
-        \`street\` VARCHAR(100) NOT NULL,
-        \`number\` VARCHAR(10) NOT NULL,
-        \`complement\` VARCHAR(100) NULL,
-        \`neighborhood\` VARCHAR(100) NOT NULL,
-        \`zip_code\` VARCHAR(10) NOT NULL,
-        \`city_id\` INT NOT NULL,
-        PRIMARY KEY (\`id\`),
-        FOREIGN KEY (\`city_id\`) REFERENCES \`city\`(\`id\`)
-      );
-    `);
-
-    await db.query(`
-      CREATE TABLE login.\`user_address\` (
-        \`user_id\` INT NOT NULL,
-        \`address_id\` INT NOT NULL,
-        PRIMARY KEY (\`user_id\`, \`address_id\`),
-        FOREIGN KEY (\`user_id\`) REFERENCES \`user\`(\`id\`),
-        FOREIGN KEY (\`address_id\`) REFERENCES \`address\`(\`id\`)
-      );
-    `);
-
     await db.commit();
 
     timeEnd('\x1b[32mMigrations query successfully\x1b[0m');
@@ -79,10 +36,7 @@ const migrations = async (): Promise<void> => {
     await db.rollback();
   } finally {
     db.release();
-    process.exit();
   }
 };
 
 export default migrations;
-
-migrations();
