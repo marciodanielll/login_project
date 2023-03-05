@@ -2,26 +2,9 @@ import chai from 'chai';
 import sinon from 'sinon';
 import { showDataType } from '../utils';
 import UserModel from '../../src/model/user.motel';
+import { userMockForCreate, userMockResponse } from './mocks';
 
 const { expect } = chai;
-
-const userMockForCreate = {
-  firstName: 'Márcio',
-  lastName: 'Daniel',
-  email: 'dan@gmail.com',
-  password: '12345678',
-};
-
-const userMockResponse = {
-  id: 1,
-  firstName: 'Márcio',
-  lastName: 'Daniel',
-  email: 'marcio@daniel.com',
-  password: '12345678',
-  updatedAt: new Date(),
-  createdAt: new Date(),
-
-};
 
 describe('UserModel | Tests methods', () => {
   describe('method createUser', () => {

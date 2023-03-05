@@ -1,16 +1,13 @@
 import { expect } from 'chai';
 
 import { showDataType } from '../utils';
-import TokenHelper, { TokenPayload } from '../../src/helpers/token.helper';
+import TokenHelper from '../../src/helpers/token.helper';
 
-const payload: TokenPayload = {
-  userId: '123',
-  email: 'test@example.com',
-};
+import { tokenPayload } from './mocks';
 
-describe.only('TokenHelper', () => {
+describe('TokenHelper', () => {
   const sut = new TokenHelper();
-  const token = sut.create(payload);
+  const token = sut.create(tokenPayload);
 
   describe('create', () => {
     it('should return a string', () => {
