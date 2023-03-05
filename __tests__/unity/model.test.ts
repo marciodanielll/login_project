@@ -1,30 +1,59 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import chai from 'chai';
-
+import sinon from 'sinon';
 import { showDataType } from '../utils';
 import UserModel from '../../src/model/user.motel';
 
 const { expect } = chai;
 
-const user = {
+const userMockForCreate = {
   firstName: 'Márcio',
   lastName: 'Daniel',
   email: 'dan@gmail.com',
   password: '12345678',
 };
 
-describe.only(' Test Unit | UserModel', () => {
-  describe('Test method | createUser', () => {
+const userMockResponse = {
+  id: 1,
+  firstName: 'Márcio',
+  lastName: 'Daniel',
+  email: 'marcio@daniel.com',
+  password: '12345678',
+  updatedAt: new Date(),
+  createdAt: new Date(),
+
+};
+
+describe('UserModel | Tests methods', () => {
+  describe('method createUser', () => {
     it('should create a user', async () => {
       const sut = new UserModel();
-      const result = await sut.createUser(user);
-      expect(showDataType(result)).to.be.equal('number');
+      const executeStub = sinon.stub().resolves([{ insertId: 1 }]);
+      const releaseStub = sinon.stub().resolves();
+
+      sinon.replace(sut, 'db', {
+        execute: executeStub,
+        release: releaseStub,
+      });
+
+      const response = await sut.createUser(userMockForCreate);
+      expect(showDataType(response)).to.be.equal('number');
     });
   });
 
-  describe('Test method | getUserByEmail', () => {
+  describe('method getUserByEmail', () => {
     const sut = new UserModel();
     let result;
+
     before(async () => {
+      const executeStub = sinon.stub().resolves([[userMockResponse]]);
+      const releaseStub = sinon.stub().resolves();
+
+      sinon.replace(sut, 'db', {
+        execute: executeStub,
+        release: releaseStub,
+      });
+
       result = await sut.getUserByEmail('marcio@daniel.com');
     });
 
@@ -33,7 +62,7 @@ describe.only(' Test Unit | UserModel', () => {
     });
 
     it(`should return an object with the properties:
-     firstName, lastName, email, password, createdAt, and updatedAt`, async () => {
+   firstName, lastName, email, password, createdAt, and updatedAt`, async () => {
       const expectedKeys = ['id', 'firstName', 'lastName', 'email', 'password', 'createdAt', 'updatedAt'];
       expect(result).to.have.all.keys(expectedKeys);
     });
