@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import chai from 'chai';
 import sinon from 'sinon';
 import { showDataType } from '../utils';
