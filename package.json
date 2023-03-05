@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:unit": "mocha  --require ts-node/register --verbose --timeout 5000 __tests__/unity/**/*.ts",
+    "test:unit": "mocha  --require ts-node/register --verbose --timeout 5000 __tests__/unity/**/*.ts --exit",
     "migrations": "ts-node ./src/infra/database/scripts/migrations.exec.ts",
     "seeds": "ts-node ./src/infra/database/scripts/seeds.exec.ts"
   },
