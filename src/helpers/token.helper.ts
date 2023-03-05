@@ -1,14 +1,10 @@
 import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
+import { TokenPayload, ITokenHelper } from 'src/types/token.types';
 import config from '../../configs/env.vars';
 
 const { security } = config;
 
-export interface TokenPayload {
-  userId: string;
-  email: string;
-}
-
-export default class TokenHelper {
+export default class TokenHelper implements ITokenHelper {
   public readonly secret: string;
 
   public readonly expiresIn: string;
