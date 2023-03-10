@@ -9,7 +9,10 @@ export interface IUserResponseQuery {
 }
 
 export type IUserForCreate = Omit<IUserResponseQuery, 'id' | 'createdAt' | 'updatedAt' >;
-
+export interface IUserForLogin {
+  email: string;
+  password: string;
+}
 export interface IUserModel {
   createUser(user: IUserForCreate): Promise<number>;
   getUserByEmail(email: string): Promise<IUserResponseQuery>;
