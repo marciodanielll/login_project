@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import { showDataType } from '../../utils';
-import UserModel from '../../../src/model/user.motel';
+import UserModel from '../../../src/core/model/user.motel';
 import { userMockForCreate, userMockResponse } from '../../mocks';
 
 const { expect } = chai;

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import AccessService from '../../../src/services/access.service';
+import AccessService from '../../../src/core/services/access.service';
 
 const userMoc = {
   id: 1,
