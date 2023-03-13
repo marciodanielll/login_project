@@ -1,6 +1,6 @@
-import TokenHelper from 'src/helpers/token.helper';
-import CryptoHelper from 'src/helpers/crypto.helper';
-import { IUserForCreate } from 'src/types/user.types';
+import { IUserForCreate } from '../../types/user.types';
+import CryptoHelper from '../../helpers/crypto.helper';
+import TokenHelper from '../../helpers/token.helper';
 import UserModel from '../model/user.motel';
 
 export default class AccessService {

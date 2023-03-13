@@ -1,6 +1,6 @@
 import { PoolConnection, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
-import getConnection from '../infra/database/connection';
-import { IUserResponseQuery, IUserForCreate, IUserModel } from '../types/user.types';
+import getConnection from '../../infra/database/connection';
+import { IUserResponseQuery, IUserForCreate, IUserModel } from '../../types/user.types';
 
 export default class UserModel implements IUserModel {
   private db: Promise<PoolConnection>;
