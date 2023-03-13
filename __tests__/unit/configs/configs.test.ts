@@ -1,6 +1,6 @@
 import chai from 'chai';
-import { showDataType } from '../utils';
-import envVars from '../../configs/env.vars';
+import { showDataType } from '../../utils';
+import envVars from '../../../configs/env.vars';
 
 const { database, security } = envVars;
 

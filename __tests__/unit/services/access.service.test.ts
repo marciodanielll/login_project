@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import AccessService from '../../src/services/access.service';
+import AccessService from '../../../src/services/access.service';
 
 const userMoc = {
   id: 1,
@@ -10,14 +10,14 @@ const userMoc = {
   password: '12345678',
 };
 
-describe('AccessService', () => {
+describe('ACCESS_SERVICE', () => {
   let sut: AccessService;
 
   before(() => {
     sut = new AccessService();
   });
   describe('signIn', () => {
-    describe('in success case', () => {
+    describe('in success case | Tests result', () => {
       it('should return a token', async () => {
         const getUserByEmailStub = sinon.stub().resolves(userMoc);
         const compareHashStub = sinon.stub().resolves(true);

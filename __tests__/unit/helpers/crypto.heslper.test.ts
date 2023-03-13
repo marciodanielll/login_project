@@ -1,12 +1,12 @@
 import { expect } from 'chai';
-import { showDataType } from '../utils';
-import CryptoHelper from '../../src/helpers/crypto.helper';
+import { showDataType } from '../../utils';
+import CryptoHelper from '../../../src/helpers/crypto.helper';
 
-describe('CryptoHelper', () => {
+describe('CRYPITO_HELPER', () => {
   const sut = new CryptoHelper();
   const password1 = 'batatinhas';
   const password2 = 'cebolinhas';
-  describe('createHash', () => {
+  describe('createHash | Test result', () => {
     let hash1: string;
     let hash2: string;
 
@@ -20,7 +20,7 @@ describe('CryptoHelper', () => {
     });
 
     it('should return a hash with a valid pattern', async () => {
-      expect(hash2).to.matches(/^$2[aby]$[0-9]{2}$[./A-Za-z0-9]{53}$/);
+      expect(hash2).to.matches(/^\$2b\$10\$[./0-9A-Za-z]{53}$/);
     });
 
     it('should return a different hash for different passwords', async () => {
@@ -28,7 +28,7 @@ describe('CryptoHelper', () => {
     });
   });
 
-  describe('compareHash', () => {
+  describe('compareHash | Test result', () => {
     let hash: string;
 
     before(async () => {

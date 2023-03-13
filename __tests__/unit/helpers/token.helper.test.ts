@@ -1,15 +1,15 @@
 import { expect } from 'chai';
 
-import { showDataType } from '../utils';
-import TokenHelper from '../../src/helpers/token.helper';
+import { showDataType } from '../../utils';
+import TokenHelper from '../../../src/helpers/token.helper';
 
-import { tokenPayload } from './mocks';
+import { tokenPayload } from '../../mocks';
 
-describe('TokenHelper', () => {
+describe('TOKEN_HELPER', () => {
   const sut = new TokenHelper();
   const token = sut.create(tokenPayload);
 
-  describe('create', () => {
+  describe('create | Test result', () => {
     it('should return a string', () => {
       expect(showDataType(token)).to.be.equals('string');
     });
@@ -19,7 +19,7 @@ describe('TokenHelper', () => {
     });
   });
 
-  describe('validate', () => {
+  describe('validate | Test result', () => {
     const decode = sut.validate(token);
 
     it('should return an object', () => {

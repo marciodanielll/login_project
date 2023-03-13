@@ -1,9 +1,9 @@
 import chai from 'chai';
-import { showDataType } from '../utils';
+import { showDataType } from '../../utils';
 
 const { expect } = chai;
 
-describe('UTILS | For tests', () => {
+describe('UTILS | Rests types', () => {
   it('should return a type array', () => {
     expect(showDataType([])).to.be.equals('array');
   });

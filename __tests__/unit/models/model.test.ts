@@ -1,13 +1,13 @@
 import chai from 'chai';
 import sinon from 'sinon';
-import { showDataType } from '../utils';
-import UserModel from '../../src/model/user.motel';
-import { userMockForCreate, userMockResponse } from './mocks';
+import { showDataType } from '../../utils';
+import UserModel from '../../../src/model/user.motel';
+import { userMockForCreate, userMockResponse } from '../../mocks';
 
 const { expect } = chai;
 
-describe('UserModel | Tests methods', () => {
-  describe('method createUser', () => {
+describe('USER_MODEL', () => {
+  describe('createUser | Tests method', () => {
     it('should create a user', async () => {
       const sut = new UserModel();
       const executeStub = sinon.stub().resolves([{ insertId: 1 }]);
@@ -23,7 +23,7 @@ describe('UserModel | Tests methods', () => {
     });
   });
 
-  describe('method getUserByEmail', () => {
+  describe('getUserByEmail | Tests method', () => {
     const sut = new UserModel();
     let result;
 
