@@ -16,15 +16,19 @@ export default class AccessValidation {
 
   public static signUp(user: IUserForCreate): string | null {
     const { schemaSingUp } = this;
+
     const { error } = schemaSingUp.validate(user);
     if (error) return error.details[0].message;
+
     return null;
   }
 
   public static signIn(user: IUserForLogin): string | null {
     const { schemaSingIn } = this;
+
     const { error } = schemaSingIn.validate(user);
     if (error) return error.details[0].message;
+
     return null;
   }
 }
