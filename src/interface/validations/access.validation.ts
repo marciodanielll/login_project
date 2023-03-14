@@ -14,14 +14,14 @@ export default class AccessValidation {
     password: Joi.string().min(6).max(15).required(),
   });
 
-  static singUp(user: IUserForCreate): string | null {
+  public static signUp(user: IUserForCreate): string | null {
     const { schemaSingUp } = this;
     const { error } = schemaSingUp.validate(user);
     if (error) return error.details[0].message;
     return null;
   }
 
-  static singIn(user: IUserForLogin): string | null {
+  public static signIn(user: IUserForLogin): string | null {
     const { schemaSingIn } = this;
     const { error } = schemaSingIn.validate(user);
     if (error) return error.details[0].message;
