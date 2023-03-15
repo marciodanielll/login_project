@@ -1,9 +1,10 @@
-import { IUserForCreate } from '../../types/user.types';
+import { IUserForCreate, IUserForLogin } from '../../types/user.types';
 import CryptoHelper from '../../helpers/crypto.helper';
 import TokenHelper from '../../helpers/token.helper';
 import UserModel from '../model/user.motel';
+import { IAccessService } from '../../types/access.types';
 
-export default class AccessService {
+export default class AccessService implements IAccessService {
   private userModel: UserModel;
 
   private tokenHelper: TokenHelper;
@@ -16,12 +17,13 @@ export default class AccessService {
     this.cryptoHelper = new CryptoHelper();
   }
 
-  async signIn(email: string, password: string): Promise<string> {
+  async signIn(credentials: IUserForLogin): Promise<string> {
+    const { email, password } = credentials;
+
     const user = await this.userModel.getUserByEmail(email);
     if (!user) throw new Error('Invalid email or password');
 
     const isPasswordValid = await this.cryptoHelper.compareHash(password, user.password);
-
     if (!isPasswordValid) throw new Error('Invalid email or password');
 
     const token = this.tokenHelper.create({ userId: user.id.toString(), email });
